@@ -1,0 +1,19 @@
+policies:
+  - name: aws-security-group-open-ingress-pull
+    resource: aws.security-group
+    filters:
+      - and:
+          - tag:c7n-102: present
+          - or:
+              - type: ingress
+                Cidr:
+                  value: "0.0.0.0/0"
+              - type: ingress
+                CidrV6:
+                  value: "::/0"
+    actions:
+      - type: remove-permissions
+        ingress: matched
+      - type: tag
+        tags:
+          c7n-workshop: "it worked!"

@@ -1,0 +1,20 @@
+policies:
+  - name: aws-s3-unencrypted-event
+    resource: aws.s3
+    mode:
+      type: cloudtrail
+      events:
+        - CreateBucket
+      role: arn:aws:iam::{account_id}:role/system/c7n-102-lambda-role
+      tags:
+        c7n-102: " "
+    filters:
+      - type: bucket-encryption
+        state: False
+      - tag:c7n-102: present
+    actions:
+      - type: encrypt-keys
+        crypto: aws:kms
+      - type: tag
+        tags:
+          c7n-102: "it worked again"

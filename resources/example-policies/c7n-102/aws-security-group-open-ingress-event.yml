@@ -1,0 +1,30 @@
+policies:
+  - name: aws-security-group-open-ingress-event
+    resource: aws.security-group
+    mode:
+      type: cloudtrail
+      events:
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupIngress
+          ids: "requestParameters.groupId"
+      role: arn:aws:iam::{account_id}:role/system/c7n-102-lambda-role
+      tags:
+        c7n-102: " "
+    filters:
+      - and:
+          - tag:c7n-102: present
+          - or:
+              - type: ingress
+                Cidr:
+                  value: "0.0.0.0/0"
+              - type: ingress
+                CidrV6:
+                  value: "::/0"
+    actions:
+      - type: auto-tag-user
+        tag: LastModifiedByUser
+      - type: remove-permissions
+        ingress: matched
+      - type: tag
+        tags:
+          c7n-workshop: "it worked again!"

@@ -1,0 +1,11 @@
+accounts:
+  - account_id: ""
+    name: account-1
+    regions:
+      - us-east-1
+    role: arn:aws:iam:::role/system/c7n-102-lambda-role
+  - account_id: ""
+    name: account-2
+    regions:
+      - us-east-1
+    role: arn:aws:iam:::role/c7n-102-assume-role

@@ -1,0 +1,15 @@
+custodian run resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml -s resources/example-policies/c7n-102/policy-execution-output --verbose --dryrun
+
+custodian report resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml -s resources/example-policies/c7n-102/policy-execution-output --field tag:c7n-102=tag:c7n-102 --format grid
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yaml -s resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml --verbose --dryrun
+
+c7n-org report -c resources/example-policies/c7n-102/accounts.yaml -s resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml
+
+custodian run resources/example-policies/c7n-102/aws-s3-unencrypted-event.yml -s resources/example-policies/c7n-102/policy-execution-output --verbose --dryrun
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yaml -s resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml --verbose --dryrun
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yaml --output-dir resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-security-group-open-ingress-event.yml
+
+c7n-org report -c resources/example-policies/c7n-102/accounts.yaml --output-dir resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-security-group-open-ingress-event.yml
