@@ -1,0 +1,11 @@
+accounts:
+  - account_id: "<account_id>"
+    name: account-1
+    regions:
+      - us-east-1
+    role: arn:aws:iam::<account_id>:role/c7n-102-exeuction-role
+  - account_id: "<account_id>"
+    name: account-2
+    regions:
+      - us-east-1
+    role: arn:aws:iam::<account_id>:role/c7n-102-exeuction-role

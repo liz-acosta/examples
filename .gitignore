@@ -1,6 +1,7 @@
 # project files and directories
-resources/example-policies/c7n-101/policy-execution-output/*
-resources/example-policies/c7n-workshop/policy-execution-output/*
+webinars/c7n-101/policies/policy-execution-output/*
+webinars/c7n-102/policies/policy-execution-output/*
+webinars/c7n-workshop/policies/policy-execution-output/*
 .terraform-plugin-cache
 
 # Byte-compiled / optimized / DLL files
@@ -136,6 +137,7 @@ dmypy.json
 # Terraform
 # Local .terraform directories
 **/.terraform/*
+.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate

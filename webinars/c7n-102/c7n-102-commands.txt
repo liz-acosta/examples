@@ -1,0 +1,29 @@
+custodian run resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml -s resources/example-policies/c7n-102/policy-execution-output --verbose --dryrun
+
+custodian report resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml -s resources/example-policies/c7n-102/policy-execution-output --field tag:c7n-102=tag:c7n-102 --format grid
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yaml -s resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml --verbose --dryrun
+
+c7n-org report -c resources/example-policies/c7n-102/accounts.yaml -s resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml
+
+custodian run resources/example-policies/c7n-102/aws-s3-unencrypted-event.yml -s resources/example-policies/c7n-102/policy-execution-output --verbose --dryrun
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yaml -s resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-s3-unencrypted-pull.yml --verbose --dryrun
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yml --output-dir resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-security-group-open-ingress-event.yml
+
+c7n-org report -c resources/example-policies/c7n-102/accounts.yml --output-dir resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-security-group-open-ingress-event.yml
+
+c7n-mailer --config
+
+c7n-mailer --config resources/example-policies/c7n-102/mailer.yml --update-lambda && custodian run -c resources/example-policies/c7n-102/aws-security-group-open-ingress-notify-pull.yml --output-dir resources/example-policies/c7n-102/policy-execution-output
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yml --output-dir resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-security-group-open-ingress-pull.yml --verbose
+
+c7n-org run -c resources/example-policies/c7n-102/accounts.yml --output-dir resources/example-policies/c7n-102/policy-execution-output -u resources/example-policies/c7n-102/aws-security-group-open-ingress-notify-pull.yml --verbose
+
+ls /Users/lacosta/Library/Caches/pypoetry/virtualenvs/c7n_examples_repo-zhAbrHMA-py3.9/lib/python3.9/site-packages/c7n_mailer/cli.py
+
+tools.ops.mugc
+
+poetry add git+https://github.com/liz-acosta/cloud-custodian.git#7185-update-c7n-logging-for-base64-decode-error-for-clarification --dev

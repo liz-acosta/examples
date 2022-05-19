@@ -1,0 +1,39 @@
+policies:
+  - name: aws-security-group-open-ingress-notify-event
+    resource: aws.security-group
+    mode:
+      type: cloudtrail
+      role: arn:aws:iam::{account_id}:role/c7n-102-execution-role
+      tags:
+        c7n-102: " "
+      events:
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupIngress
+          ids: "requestParameters.groupId"
+    filters:
+      - and:
+          - tag:c7n-102: present
+          - or:
+              - type: ingress
+                Cidr:
+                  value: "0.0.0.0/0"
+              - type: ingress
+                CidrV6:
+                  value: "::/0"
+    actions:
+      - type: notify
+        template: default.html
+        priority_header: "2"
+        subject: Vulnerable security groups detected and remediated
+        to:
+          - liz@stacklet.io
+        transport:
+          type: sqs
+          queue: https://sqs.us-east-1.amazonaws.com/<account id>/c7n-102-mailer-queue
+      - type: remove-permissions
+        ingress: matched
+      - type: auto-tag-user
+        tag: LastModifiedByUser
+      - type: tag
+        tags:
+          c7n-workshop: "it worked!"

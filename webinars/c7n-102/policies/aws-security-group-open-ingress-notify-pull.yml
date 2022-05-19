@@ -1,0 +1,41 @@
+policies:
+  - name: aws-security-group-open-ingress-notify-pull
+    description: |
+      Notifies on any security group tagged 'c7n-102'
+      and with either a IPv4 or IPv6 CIDR block
+      that permits inbound traffic from everywhere.
+    resource: aws.security-group
+    filters:
+      - and:
+          - tag:c7n-102: present
+          - or:
+              - type: ingress
+                Cidr:
+                  value: "0.0.0.0/0"
+              - type: ingress
+                CidrV6:
+                  value: "::/0"
+    actions:
+      - type: remove-permissions
+        ingress: matched
+      - type: tag
+        tags:
+          c7n-102: "it worked again!"
+      - type: notify
+        slack_template: slack_default
+        slack_msg_color: danger
+        violation_desc: |
+          A security group or security groups tagged 'c7n-102'
+          and with either a IPv4 or IPv6 CIDR block
+          that permits inbound traffic from everywhere
+          has been detected.
+        action_desc: |
+          Permissions have been removed from the security group
+          or security groups indicated and tags have been updated.
+          Please investigate further.
+        to:
+          - <slack hook>
+        transport:
+          type: sqs
+          queue: |
+            https://sqs.us-east-1.amazonaws.com/<account id>/c7n-102-mailer-queue

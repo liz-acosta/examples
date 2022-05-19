@@ -1,0 +1,22 @@
+accounts:
+  - account_id: <source account id>
+    name: source
+    regions:
+      - us-east-1
+    role: arn:aws:iam::<source account id>:role/c7n-102-execution-role
+    vars:
+      account_friendly_name: "source"
+      account_owner: <source owner email address>
+    tags:
+      - c7n-102-account:source
+
+  - account_id: <destination account id>
+    name: destination
+    regions:
+      - us-east-1
+    role: arn:aws:iam::<destination account id>:role/c7n-102-execution-role
+    vars:
+      account_friendly_name: "destination"
+      account_owner: <destination owner email address>
+    tags:
+      - c7n-102-account:destination
