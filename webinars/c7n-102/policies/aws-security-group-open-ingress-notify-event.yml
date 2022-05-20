@@ -26,7 +26,7 @@ policies:
         priority_header: "2"
         subject: Vulnerable security groups detected and remediated
         to:
-          - liz@stacklet.io
+          - <email>
         transport:
           type: sqs
           queue: https://sqs.us-east-1.amazonaws.com/<account id>/c7n-102-mailer-queue
