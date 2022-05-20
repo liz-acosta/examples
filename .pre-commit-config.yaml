@@ -8,8 +8,11 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: detect-aws-credentials
-        args:
-          - "--allow-missing-credentials"
+  - repo: https://github.com/awslabs/git-secrets
+    rev: "b9e96b3212fa06aea65964ff0d5cda84ce935f38"
+    hooks:
+      - id: git-secrets
+        entry: "git-secrets --scan"
 
   # - repo: local
   #   hooks:
